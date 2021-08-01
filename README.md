@@ -7,7 +7,7 @@ If you have a team of skilled chefs and editors the way that food magazines do t
 # Project Details
 
 # Scope
-The scope has been limited such that the model is only equipped to classify savoury European cuisines. 
+The scope was limited such that the model is only equipped to classify savoury European cuisines. 
 
 # Methodology
 1. 60 recipes from https://www.greatbritishchefs.com/ were chosen such that there was an even amount of recipes that were 'Easy', 'Medium' and 'Challenging' and such that there were an even number of recipes using poultry, beef, pork, lamb, seafood, and were vegetarian. 
