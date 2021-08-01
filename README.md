@@ -1,2 +1,2 @@
-# RecipeSearch
-A web application allowing users to search for recipes based on factors such as ingredients available, time needed to prepare the meal, and the complexity of the recipe. 
+# Cooky
+Cooky is a tool that allows users to quickly and automatically classify their recipe's difficulties. This is aimed at independent chefs who publish their recipes online and would like to add a difficulty filter to allow their users to access recipes accessible to their skill levels. Cooky is a multi-class text classification model that searches through instructions in a recipe for features specifically relating to difficulty levels ranging from 'Easy' to 'Challenging'. 
