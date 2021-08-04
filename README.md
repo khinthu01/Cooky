@@ -74,9 +74,44 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, T
 # without being too limiting. 
 tfidf = TfidfVectorizer(sublinear_tf=True, min_df = 10, norm='l2', encoding='latin-1', ngram_range=(1,2), stop_words='english')
 
+# features is a document term matrix that contains information about how frequently specific features(ngrams) appear across recipes of the same difficulty classification.
 features = tfidf.fit_transform(recipe_df.Method).toarray()
 labels = recipe_df.Difficulty
 
+# split the training and testing data. train_size was determined based on trial and error. First I started with the default value of 0.75 and tried lowering it
+# incrementally and increasing it and I found 0.78 to yield the highest accuracy. train_size of 0.8 or above resulted in lower accuracy. 
+x_train, x_test, y_train, y_test = train_test_split(features, labels, train_size=0.78, random_state=1)
+
+import sklearn
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import cross_val_score
+
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+models = [RandomForestClassifier(n_estimators=50, max_depth=5, random_state=1),
+          LinearSVC(),
+          MultinomialNB(),
+          LogisticRegression(random_state=1)]
+          
+CV = 5
+cv_df = pd.DataFrame(index=range(CV*len(models)))
+entries = []
+
+for model in models:
+  model_name = model.__class__.__name__
+  accuracies = cross_val_score(model, features, labels, scoring='accuracy', cv=CV)
+  for fold_idx, accuracy in enumerate(accuracies):
+    entries.append((model_name, fold_idx, accuracy))
+
+cv_df = pd.DataFrame(entries, columns=['model_name', 'fold_idx', 'accuracy'])
+
+sns.boxplot(x='model_name', y='accuracy', data=cv_df)
+plt.show()
 ```
 6. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
 7. The model was deployed. 
