@@ -11,6 +11,8 @@ The scope was limited such that the model is only equipped to classify savoury E
 
 ## Approach
 ### The data phase
+The inital data processing and model selection was done in a python notebook using the Azure Machine Learning Studio Notebooks.
+
 1. 60 recipes from https://www.greatbritishchefs.com/ were chosen such that there was an even amount of recipes that were 'Easy', 'Medium' and 'Challenging' and such that there were an even number of recipes using poultry, beef, pork, lamb, seafood, and were vegetarian. 
 2. The instructions from these recipes as well as their difficulty levels were extracted using the BeautifulSoup and requests python libraries. 
 ```python
