@@ -18,5 +18,55 @@ The scope was limited such that the model is only equipped to classify savoury E
 6. The model was deployed. 
 
 # Requesting the Model
+You can access the deployed model through these steps:
+```python
+from azureml.core import Workspace, Webservice
+import urllib.request
+import json
+import os
 
+subscription_id = 'c6105f1b-33c5-4d6e-bc88-7e67fc70f8fd'
+resource_group = 'CookyNLP'
+workspace_name = 'CookyNLP'
+
+workspace = Workspace(subscription_id, resource_group, workspace_name)
+service = Webservice(workspace=workspace, name='classify-recipe-difficulty')
+primary_key, secondary_key = service.get_keys()
+
+url = 'http://9c38f2e2-32a8-4957-a52b-bb8f13252dd0.australiaeast.azurecontainer.io/score' #the model endpoint
+key = 'PRIMARY KEY' #Replace with your key
+
+data = {
+    "Inputs": {
+        "WebServiceInput0":
+        [
+            {
+                'Unnamed: 0': "0",
+                'Method': "Insert recipe method text here", #insert your recipe method text
+            },
+        ],
+    },
+    "GlobalParameters": {
+    }
+}
+
+body = str.encode(json.dumps(data))
+
+headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ key)}
+
+req = urllib.request.Request(url, body, headers)
+
+try:
+    response = urllib.request.urlopen(req)
+    result = response.read()
+    json_result = json.loads(result)
+    print(json_result)
+except urllib.error.HTTPError as error:
+    print("The request failed with status code: " + str(error.code))
+
+    # Print the headers to help debug
+    print(error.info())
+    print(json.loads(error.read().decode("utf8", 'ignore')))
+
+```
 
