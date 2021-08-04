@@ -31,16 +31,41 @@ def url_to_recipe(url):
   if difficulty.find(class_="header-attribute-text text-capitalize medium"):
     recipe_difficulty= difficulty.find(class_="header-attribute-text text-capitalize medium").text
   else: 
-    recipe_difficulty = soup.find(class_="RecipeAttributes__Difficulty").find(class_="header-attribute-text text-capitalize").text
+    recipe_difficulty = difficulty.find(class_="header-attribute-text text-capitalize").text
+  
+  # extracting the recipe method
   recipe_method = [p.text for p in soup.find(class_="Recipe__Method Method").find_all(class_="MethodList__StepText")]
 
   return [recipe_name, recipe_difficulty, recipe_method]
-
+  
+# recipe_urls was a list containing 60 recipe urls from https://www.greatbritishchefs.com/. Each url from this list was fed to the url_to_recipe() function and recipe 
+# information was extracted
+recipes = [url_to_recipe(url) for url in recipe_urls]
 ```
-4. The text data was cleaned.
-5. Features were extracted from the cleaned data and along with labels (the difficulty levels) were used to train multiple multi-class classification models available in the scikit-learn library. The models used were Logistic Regression, Multinomial NB, Random Forest Classifier, and Linear SVC. The models were compared by their accuracy and the best model (Random Forest) was selected.
-6. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
-7. The model was deployed. 
+4. The text data underwent a preliminary cleaning and was combined into a corpus for use as a dataset in the Machine Learning Designer. 
+```python
+def combine_text(list_of_text):
+  # Takes a list of text and combines them into one large group of text.
+  combined_text = ' '.join(list_of_text)
+  return combined_text
+  
+recipe_names = [r[0] for r in recipes]
+recipe_difficulties = [r[1] for r in recipes]
+recipe_combined = [combine_text(r[2]) for r in recipes]
+recipe_methods = [r.replace("\r\n", " ") for r in recipe_combined]
+recipe_names = [r.replace("\r\n", " ") for r in recipe_names]
+
+pd.set_option('max_colwidth', 200)
+# organising data into corpus 
+data = {"Recipe Name": recipe_names, "Method": recipe_methods, "Difficulty": recipe_difficulties}
+recipe_df = pd.DataFrame(data=data, columns=["Recipe_Name", "Method", "Difficulty"])
+
+# storing in a csv file for later use in Azure Machine Learning Designer.
+recipe_df.to_csv("recipe_corpus.csv")
+```
+6. Features were extracted from the cleaned data and along with labels (the difficulty levels) were used to train multiple multi-class classification models available in the scikit-learn library. The models used were Logistic Regression, Multinomial NB, Random Forest Classifier, and Linear SVC. The models were compared by their accuracy and the best model (Random Forest) was selected.
+7. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
+8. The model was deployed. 
 
 # Implementation
 
