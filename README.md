@@ -117,8 +117,12 @@ plt.show()
 ```
 ![picture alt](model_compare.PNG "Title is optional")
 
-6. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
-7. The model was deployed. 
+6. The recipe_corpus.csv was registered as a dataset in Machine Learning Studio and then a training pipeline was created using Machine Learning Designer. 
+7. The method and difficulty columns were selected from the dataset and the text was preprocessed (cleaned) to remove numbers, special characters, stop words, etc.
+8. Ngrams were then extracted using the same settings as with the TfidfVectorizer. The results dataset was set to a split data module for training while the vocabulary generated was exported for use in the inference pipeline. 
+10. The model was scored and evaluated. 
+11. An inference pipeline was created and the model was deployed.
+
 
 # Implementation
 
