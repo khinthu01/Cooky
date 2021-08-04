@@ -51,7 +51,7 @@ try:
     response = urllib.request.urlopen(req)
     result = response.read()
     json_result = json.loads(result)
-    print(json_result)
+    recipe_difficulty = json_result["Results"]["WebServiceOutput0"][0]["RecipeDifficulty"] # this can be input into your recipe database along with the recipe it classified
 except urllib.error.HTTPError as error:
     print("The request failed with status code: " + str(error.code))
 
