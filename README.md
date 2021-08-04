@@ -42,7 +42,7 @@ def url_to_recipe(url):
 # information was extracted
 recipes = [url_to_recipe(url) for url in recipe_urls]
 ```
-4. The text data underwent a preliminary cleaning and was combined into a corpus for use as a dataset in the Machine Learning Designer. 
+3. The text data underwent a preliminary cleaning and was combined into a corpus for use as a dataset in the Machine Learning Designer. 
 ```python
 def combine_text(list_of_text):
   # Takes a list of text and combines them into one large group of text.
@@ -63,9 +63,23 @@ recipe_df = pd.DataFrame(data=data, columns=["Recipe_Name", "Method", "Difficult
 # storing in a csv file for later use in Azure Machine Learning Designer.
 recipe_df.to_csv("recipe_corpus.csv")
 ```
-6. Features were extracted from the cleaned data and along with labels (the difficulty levels) were used to train multiple multi-class classification models available in the scikit-learn library. The models used were Logistic Regression, Multinomial NB, Random Forest Classifier, and Linear SVC. The models were compared by their accuracy and the best model (Random Forest) was selected.
-7. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
-8. The model was deployed. 
+4. Features were extracted from the cleaned data and along with labels (the difficulty levels) were used to train multiple multi-class classification models available in the scikit-learn library. The models used were Logistic Regression, Multinomial NB, Random Forest Classifier, and Linear SVC. The models were compared by their accuracy and the best model (Random Forest) was selected.
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
+
+# TfidfVectorizer works very similarly to the 'Extract N-Gram Features from Text' module in the Machine Learning Designer while also further cleaning text data.
+# It extracts features from the text - in this case it's extract unigrams and bigrams 'ngram_range=(1,2)'. I chose this range because...
+# I set the min_df (minimum document frequency) to 10 after performing trial and error with this filter and finding that 10 increased the accuracy of the models 
+# without being too limiting. 
+tfidf = TfidfVectorizer(sublinear_tf=True, min_df = 10, norm='l2', encoding='latin-1', ngram_range=(1,2), stop_words='english')
+
+features = tfidf.fit_transform(recipe_df.Method).toarray()
+labels = recipe_df.Difficulty
+
+```
+6. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
+7. The model was deployed. 
 
 # Implementation
 
