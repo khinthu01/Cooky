@@ -1,1 +1,0 @@
-from recipe_api import app
