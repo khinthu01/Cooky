@@ -6,16 +6,20 @@ If you have a team of skilled chefs and editors the way that food magazines do t
 
 # Project Details
 
-# Scope
+## Scope
 The scope was limited such that the model is only equipped to classify savoury European cuisines. 
 
-# Methodology
+## Approach
+### The data phase
 1. 60 recipes from https://www.greatbritishchefs.com/ were chosen such that there was an even amount of recipes that were 'Easy', 'Medium' and 'Challenging' and such that there were an even number of recipes using poultry, beef, pork, lamb, seafood, and were vegetarian. 
 2. The instructions from these recipes as well as their difficulty levels were extracted.
 3. The text data was cleaned.
 4. Features were extracted from the cleaned data and along with labels (the difficulty levels) were used to train multiple multi-class classification models available in the scikit-learn library. The models used were Logistic Regression, Multinomial NB, Random Forest Classifier, and Linear SVC. The models were compared by their accuracy and the best model (Random Forest) was selected.
 5. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
 6. The model was deployed. 
+
+# Implementation
+
 
 # Requesting the Model
 You can access the deployed model through these steps:
