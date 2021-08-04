@@ -20,21 +20,12 @@ The scope was limited such that the model is only equipped to classify savoury E
 # Requesting the Model
 You can access the deployed model through these steps:
 ```python
-from azureml.core import Workspace, Webservice
 import urllib.request
 import json
 import os
 
-subscription_id = 'c6105f1b-33c5-4d6e-bc88-7e67fc70f8fd'
-resource_group = 'CookyNLP'
-workspace_name = 'CookyNLP'
-
-workspace = Workspace(subscription_id, resource_group, workspace_name)
-service = Webservice(workspace=workspace, name='classify-recipe-difficulty')
-primary_key, secondary_key = service.get_keys()
-
 url = 'http://9c38f2e2-32a8-4957-a52b-bb8f13252dd0.australiaeast.azurecontainer.io/score' #the model endpoint
-key = 'PRIMARY KEY' #Replace with your key
+key = 'DmJUk8IK9nvVQwG6HMC8YkaaYhrHPQGZ' #the primary key
 
 data = {
     "Inputs": {
