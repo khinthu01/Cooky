@@ -116,6 +116,7 @@ sns.boxplot(x='model_name', y='accuracy', data=cv_df)
 plt.show()
 ```
 ![picture alt](model_compare.PNG "Title is optional")
+
 6. A training pipeline was created using Microsoft Azure Machine Learning Designer. The model was scored and evaluated before an inference pipeline was created. 
 7. The model was deployed. 
 
