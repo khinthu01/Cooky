@@ -119,10 +119,10 @@ plt.show()
 6. The recipe_corpus.csv was registered as a dataset in Machine Learning Studio and then a training pipeline was created using Machine Learning Designer. 
 7. The method and difficulty columns were selected from the dataset and the text was preprocessed (cleaned) to remove numbers, special characters, stop words, etc.
 8. Ngrams were then extracted using the same settings as with the TfidfVectorizer. The results dataset was set to a split data module for training while the vocabulary generated was exported for use in the inference pipeline. 
-10. A decision forest, like random forests, was chosen. The model was trained, scored and evaluated.  
+9. A decision forest, like random forests, was chosen. The model was trained, scored and evaluated.  
 ![picture alt](training.PNG "training pipeline")
 
-12. An inference pipeline was created with a python script to determine the web service output. The python code and inference pipeline can be seen below.
+10. An inference pipeline was created with a python script to determine the web service output. The python code and inference pipeline can be seen below.
 ```python
 import pandas as pd
 
@@ -136,11 +136,7 @@ def azureml_main(dataframe1 = None, dataframe2 = None):
 ```
 ![picture alt](inference.PNG "inference pipeline")
 
-14. 
-15.   and the model was deployed.
-
-
-# Implementation
+11. The model was then deployed to a real-time endpoint using an Azure Container Instance
 
 
 # Requesting the Model
