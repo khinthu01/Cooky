@@ -122,7 +122,22 @@ plt.show()
 10. A decision forest, like random forests, was chosen. The model was trained, scored and evaluated.  
 ![picture alt](training.PNG "training pipeline")
 
-12. An inference pipeline was created and the model was deployed.
+12. An inference pipeline was created with a python script to determine the web service output. The python code and inference pipeline can be seen below.
+```python
+import pandas as pd
+
+def azureml_main(dataframe1 = None, dataframe2 = None):
+
+    scored_results = dataframe1[['Scored Labels']]
+    scored_results.rename(columns={'Scored Labels':'RecipeDifficulty'}, inplace=True)
+
+
+    return scored_results
+```
+![picture alt](inference.PNG "inference pipeline")
+
+14. 
+15.   and the model was deployed.
 
 
 # Implementation
