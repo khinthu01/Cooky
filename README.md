@@ -138,6 +138,8 @@ def azureml_main(dataframe1 = None, dataframe2 = None):
 
 11. The model was then deployed to a real-time endpoint using an Azure Container Instance
 
+# Accessing the Project
+The data cleaning and model comparisons mentioned in the section "Approach" can be seen in the recipe_extraction.ipynb. To use this notebook, you may have to install bs4, requests, pandas, numpy, and sklearn. You may upload this to Azure Notebooks for use on the cloud. 
 
 # Requesting the Model
 You can access the deployed model through these steps:
