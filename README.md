@@ -10,7 +10,6 @@ If you have a team of skilled chefs and editors the way that food magazines do t
 The scope was limited such that the model is only equipped to classify savoury European cuisines. 
 
 ## Approach
-### The data phase
 The inital data processing and model selection was done in a python notebook using the Azure Machine Learning Studio Notebooks.
 
 1. 60 recipes from https://www.greatbritishchefs.com/ were chosen such that there was an even amount of recipes that were 'Easy', 'Medium' and 'Challenging' and such that there were an even number of recipes using poultry, beef, pork, lamb, seafood, and were vegetarian. 
@@ -115,13 +114,15 @@ cv_df = pd.DataFrame(entries, columns=['model_name', 'fold_idx', 'accuracy'])
 sns.boxplot(x='model_name', y='accuracy', data=cv_df)
 plt.show()
 ```
-![picture alt](model_compare.PNG "Title is optional")
+![picture alt](model_compare.PNG "a boxplot showing the accuracy ranges of different models")
 
 6. The recipe_corpus.csv was registered as a dataset in Machine Learning Studio and then a training pipeline was created using Machine Learning Designer. 
 7. The method and difficulty columns were selected from the dataset and the text was preprocessed (cleaned) to remove numbers, special characters, stop words, etc.
 8. Ngrams were then extracted using the same settings as with the TfidfVectorizer. The results dataset was set to a split data module for training while the vocabulary generated was exported for use in the inference pipeline. 
-10. The model was scored and evaluated. 
-11. An inference pipeline was created and the model was deployed.
+10. A decision forest, like random forests, was chosen. The model was trained, scored and evaluated.  
+![picture alt](training.PNG "training pipeline")
+
+12. An inference pipeline was created and the model was deployed.
 
 
 # Implementation
