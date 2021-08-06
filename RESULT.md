@@ -2,8 +2,8 @@
 
 Model Results:
 
-Accuracy/Recall   | 
-------------------| -------------
+First Header  | Second Header
+------------- | -------------
 Overall Accuracy  | 0.538
 Micro Precision   | 0.538
 Macro Precision   | 0.550
