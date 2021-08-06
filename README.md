@@ -12,6 +12,7 @@ The scope was limited such that the model is only equipped to classify savoury E
 ## Approach
 The inital data processing and model selection was done in a python notebook using the Azure Machine Learning Studio Notebooks. The main model training, scoring, evaluation, inferencing, and deployment were done using Machine Learning Designer. Python notebooks were used in the initial stage because they were faster to run making experimentation much more convenient. The Machine Learning Designer were used for the model and deployment phase because they are much neater and more readable and Azure's model registry makes version control and collaboration easier. 
 
+My method was broken down into the following steps: 
 1. 60 recipes from https://www.greatbritishchefs.com/ were chosen such that there was an even amount of recipes that were 'Easy', 'Medium' and 'Challenging' and such that there were an even number of recipes using poultry, beef, pork, lamb, seafood, and were vegetarian. 
 2. The instructions from these recipes as well as their difficulty levels were extracted using the BeautifulSoup and requests python libraries. 
 ```python
